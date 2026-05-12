@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Student = require("../models/Student");
-const resend = require("../config/mail");
+const transporter = require("../config/mail");
 
 router.post("/register", async (req, res) => {
 
@@ -25,9 +25,9 @@ router.post("/register", async (req, res) => {
 
   // SEND EMAIL
 
-await resend.emails.send({
+await transporter.sendMail({
 
-  from: "onboarding@resend.dev",
+  from: process.env.BREVO_EMAIL,
 
   to: student.email,
 

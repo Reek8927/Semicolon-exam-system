@@ -8,7 +8,7 @@ const Exam = require("../models/Exam");
 
 const Student = require("../models/Student");
 
-const resend = require("../config/mail");
+const transporter = require("../config/mail");
 
 router.post(
 
@@ -71,9 +71,9 @@ router.post(
 
       if (req.files?.omrFile?.[0]) {
 
-        await resend.emails.send({
+        await transporter.sendMail({
 
-  from: "onboarding@resend.dev",
+  from: process.env.BREVO_EMAIL,
 
   to: student.email,
 
@@ -145,9 +145,9 @@ router.post(
 
       if (req.files?.reportCard?.[0]) {
 
-        await resend.emails.send({
+        await transporter.sendMail({
 
-  from: "onboarding@resend.dev",
+  from: process.env.BREVO_EMAIL,
 
   to: student.email,
           subject:

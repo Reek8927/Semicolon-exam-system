@@ -1,7 +1,21 @@
-const { Resend } = require("resend");
+const nodemailer = require("nodemailer");
 
-const resend = new Resend(
-  process.env.RESEND_API_KEY
-);
+const transporter = nodemailer.createTransport({
 
-module.exports = resend;
+  host: "smtp-relay.brevo.com",
+
+  port: 587,
+
+  secure: false,
+
+  auth: {
+
+    user: process.env.BREVO_EMAIL,
+
+    pass: process.env.BREVO_PASSWORD
+
+  }
+
+});
+
+module.exports = transporter;
