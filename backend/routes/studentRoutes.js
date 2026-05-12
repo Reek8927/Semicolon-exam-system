@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Student = require("../models/Student");
-const transporter = require("../config/mail");
+const resend = require("../config/mail");
 
 router.post("/register", async (req, res) => {
 

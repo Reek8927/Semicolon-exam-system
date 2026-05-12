@@ -8,7 +8,7 @@ const Exam = require("../models/Exam");
 
 const Student = require("../models/Student");
 
-const transporter = require("../config/mail");
+const resend = require("../config/mail");
 
 router.post(
 
