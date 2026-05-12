@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Student = require("../models/Student");
-const transporter = require("../config/mail");
+const sendMail = require("../config/mail");
 
 router.post("/register", async (req, res) => {
 
@@ -25,11 +25,10 @@ router.post("/register", async (req, res) => {
 
   // SEND EMAIL
 
-await transporter.sendMail({
-
-  from: process.env.BREVO_EMAIL,
+await sendMail({
 
   to: student.email,
+
 
   subject: "Welcome to Semicolon Coaching",
 

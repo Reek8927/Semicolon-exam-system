@@ -8,7 +8,7 @@ const Exam = require("../models/Exam");
 
 const Student = require("../models/Student");
 
-const transporter = require("../config/mail");
+const sendMail = require("../config/mail");
 
 router.post(
 
@@ -71,11 +71,10 @@ router.post(
 
       if (req.files?.omrFile?.[0]) {
 
-        await transporter.sendMail({
-
-  from: process.env.BREVO_EMAIL,
+        await sendMail({
 
   to: student.email,
+
 
           subject: `OMR Uploaded - ${examName}`,
 
@@ -145,11 +144,10 @@ router.post(
 
       if (req.files?.reportCard?.[0]) {
 
-        await transporter.sendMail({
-
-  from: process.env.BREVO_EMAIL,
+        await sendMail({
 
   to: student.email,
+
           subject:
             `Report Card Uploaded - ${examName}`,
 
