@@ -71,11 +71,11 @@ router.post(
 
       if (req.files?.omrFile?.[0]) {
 
-        await transporter.sendMail({
+        await resend.emails.send({
 
-          from: process.env.EMAIL,
+  from: "onboarding@resend.dev",
 
-          to: student.email,
+  to: student.email,
 
           subject: `OMR Uploaded - ${examName}`,
 
@@ -145,12 +145,11 @@ router.post(
 
       if (req.files?.reportCard?.[0]) {
 
-        await transporter.sendMail({
+        await resend.emails.send({
 
-          from: process.env.EMAIL,
+  from: "onboarding@resend.dev",
 
-          to: student.email,
-
+  to: student.email,
           subject:
             `Report Card Uploaded - ${examName}`,
 

@@ -25,11 +25,11 @@ router.post("/register", async (req, res) => {
 
   // SEND EMAIL
 
-await transporter.sendMail({
+await resend.emails.send({
 
-  from: process.env.EMAIL,
+  from: "onboarding@resend.dev",
 
-  to: email,
+  to: student.email,
 
   subject: "Welcome to Semicolon Coaching",
 
