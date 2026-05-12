@@ -325,7 +325,7 @@ export default function StudentProfile() {
                       {exam.omrFile && (
 
                         <a
-                          href={`${import.meta.env.VITE_API_URL}/uploads/${exam.omrFile}`}
+                          href={exam.omrFile}
                           target="_blank"
                           rel="noreferrer"
                           className="bg-gradient-to-r from-blue-500 to-cyan-400 px-6 py-3 rounded-2xl font-semibold hover:opacity-90 transition"
@@ -338,7 +338,7 @@ export default function StudentProfile() {
                       {exam.reportCard && (
 
                         <a
-                          href={`${import.meta.env.VITE_API_URL}/uploads/${exam.reportCard}`}
+                          href={exam.reportCard}
                           target="_blank"
                           rel="noreferrer"
                           className="bg-white/10 border border-white/10 px-6 py-3 rounded-2xl font-semibold hover:bg-white/20 transition"

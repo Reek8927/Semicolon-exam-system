@@ -1,4 +1,5 @@
 const express = require("express");
+
 const router = express.Router();
 
 const upload = require("../config/multer");
@@ -10,7 +11,9 @@ const Student = require("../models/Student");
 const transporter = require("../config/mail");
 
 router.post(
+
   "/upload",
+
   upload.fields([
     { name: "omrFile" },
     { name: "reportCard" }
@@ -18,152 +21,250 @@ router.post(
 
   async (req, res) => {
 
-    const {
-      studentId,
-      examName,
-      score,
-      rank
-    } = req.body;
+    try {
 
-    const exam = new Exam({
+      const {
+        studentId,
+        examName,
+        score,
+        rank
+      } = req.body;
 
-      studentId,
+      // =========================
+      // DEBUG
+      // =========================
 
-      examName,
+      console.log(req.files);
 
-      score,
+      // =========================
+      // CREATE EXAM
+      // =========================
 
-      rank,
+      const exam = new Exam({
 
-      omrFile: req.files["omrFile"]
-        ? req.files["omrFile"][0].filename
-        : "",
+        studentId,
 
-      reportCard: req.files["reportCard"]
-        ? req.files["reportCard"][0].filename
-        : ""
+        examName,
 
-    });
+        score,
 
-    await exam.save();
+        rank,
 
-    res.json({
-      message: "Files Uploaded",
-      exam
-    });
+        omrFile: req.files?.omrFile?.[0]?.path || "",
 
-    const student = await Student.findById(studentId);
+        reportCard:
+          req.files?.reportCard?.[0]?.path || ""
 
-// =========================
-// SEND OMR MAIL
-// =========================
+      });
 
-if (req.files?.omrFile?.[0]) {
+      await exam.save();
 
-  await transporter.sendMail({
+      // =========================
+      // FIND STUDENT
+      // =========================
 
-    from: process.env.EMAIL,
+      const student = await Student.findById(studentId);
 
-    to: student.email,
+      // =========================
+      // SEND OMR MAIL
+      // =========================
 
-    subject: `OMR Uploaded - ${examName}`,
+      if (req.files?.omrFile?.[0]) {
 
-    html: `
+        await transporter.sendMail({
 
-      <h2>Hello ${student.name}</h2>
+          from: process.env.EMAIL,
 
-      <p>Your OMR sheet has been uploaded.</p>
+          to: student.email,
 
-      <p><strong>Exam:</strong> ${examName}</p>
+          subject: `OMR Uploaded - ${examName}`,
 
-      <p>Please find the OMR attached.</p>
+          html: `
 
-      <br/>
+            <div style="
+              font-family: Arial;
+              padding: 20px;
+              background: #0b1120;
+              color: white;
+              border-radius: 12px;
+            ">
 
-      <p>Regards,<br/>Semicolon Coaching</p>
+              <div style="text-align:center; margin-bottom:30px;">
 
-    `,
+                <img
+                  src="${process.env.LOGO_URL}"
+                  alt="Semicolon Logo"
+                  style="
+                    width:120px;
+                    border-radius:20px;
+                  "
+                />
 
-    attachments: [
+              </div>
 
-      {
+              <h2>Hello ${student.name}</h2>
 
-        filename:
-          req.files.omrFile[0].filename,
+              <p>Your OMR sheet has been uploaded.</p>
 
-        path:
-          `uploads/${req.files.omrFile[0].filename}`
+              <p><strong>Exam:</strong> ${examName}</p>
 
-      }
+              <p>Please find the OMR attached.</p>
 
-    ]
+              <br/>
 
-  });
+              <p>
+                Regards,<br/>
+                Semicolon Coaching
+              </p>
 
-}
+            </div>
 
-// =========================
-// SEND REPORT CARD MAIL
-// =========================
+          `,
 
-if (req.files?.reportCard?.[0]) {
+          attachments: [
 
-  await transporter.sendMail({
+            {
 
-    from: process.env.EMAIL,
+              filename:
+                req.files.omrFile[0].originalname,
 
-    to: student.email,
+              path:
+                req.files.omrFile[0].path
 
-    subject: `Report Card Uploaded - ${examName}`,
+            }
 
-    html: `
+          ]
 
-      <h2>Hello ${student.name}</h2>
-
-      <p>Your report card has been uploaded.</p>
-
-      <p><strong>Exam:</strong> ${examName}</p>
-
-      <p><strong>Score:</strong> ${score}</p>
-
-      <p><strong>Rank:</strong> ${rank}</p>
-
-      <p>Please find the report card attached.</p>
-
-      <br/>
-
-      <p>Regards,<br/>Semicolon Coaching</p>
-
-    `,
-
-    attachments: [
-
-      {
-
-        filename:
-          req.files.reportCard[0].filename,
-
-        path:
-          `uploads/${req.files.reportCard[0].filename}`
+        });
 
       }
 
-    ]
+      // =========================
+      // SEND REPORT CARD MAIL
+      // =========================
 
-  });
+      if (req.files?.reportCard?.[0]) {
 
-}
+        await transporter.sendMail({
+
+          from: process.env.EMAIL,
+
+          to: student.email,
+
+          subject:
+            `Report Card Uploaded - ${examName}`,
+
+          html: `
+
+            <div style="
+              font-family: Arial;
+              padding: 20px;
+              background: #0b1120;
+              color: white;
+              border-radius: 12px;
+            ">
+
+              <div style="text-align:center; margin-bottom:30px;">
+
+                <img
+                  src="${process.env.LOGO_URL}"
+                  alt="Semicolon Logo"
+                  style="
+                    width:120px;
+                    border-radius:20px;
+                  "
+                />
+
+              </div>
+
+              <h2>Hello ${student.name}</h2>
+
+              <p>Your report card has been uploaded.</p>
+
+              <p><strong>Exam:</strong> ${examName}</p>
+
+              <p><strong>Score:</strong> ${score}</p>
+
+              <p><strong>Rank:</strong> ${rank}</p>
+
+              <p>Please find the report card attached.</p>
+
+              <br/>
+
+              <p>
+                Regards,<br/>
+                Semicolon Coaching
+              </p>
+
+            </div>
+
+          `,
+
+          attachments: [
+
+            {
+
+              filename:
+                req.files.reportCard[0].originalname,
+
+              path:
+                req.files.reportCard[0].path
+
+            }
+
+          ]
+
+        });
+
+      }
+
+      // =========================
+      // RESPONSE
+      // =========================
+
+      res.json({
+
+        message: "Files Uploaded Successfully",
+
+        exam
+
+      });
+
+    } catch (err) {
+
+      console.error(err);
+
+      res.status(500).json({
+
+        message: "Upload Failed"
+
+      });
+
+    }
 
   }
+
 );
 
 router.get("/:studentId", async (req, res) => {
 
-  const exams = await Exam.find({
-    studentId: req.params.studentId
-  });
+  try {
 
-  res.json(exams);
+    const exams = await Exam.find({
+      studentId: req.params.studentId
+    });
+
+    res.json(exams);
+
+  } catch (err) {
+
+    console.error(err);
+
+    res.status(500).json({
+      message: "Failed to fetch exams"
+    });
+
+  }
 
 });
 
