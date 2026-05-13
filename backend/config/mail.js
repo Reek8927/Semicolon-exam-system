@@ -9,14 +9,40 @@ const sendMail = async ({
 
   try {
 
+    // =========================
+    // CONVERT FILES TO BASE64
+    // =========================
+
     const formattedAttachments =
-  attachments.map((file) => ({
+      await Promise.all(
 
-    url: file.path,
+        attachments.map(async (file) => {
 
-    name: file.filename
+          const response =
+            await axios.get(file.path, {
 
-  }));
+              responseType: "arraybuffer"
+
+            });
+
+          return {
+
+            name: file.filename,
+
+            content:
+              Buffer.from(
+                response.data
+              ).toString("base64")
+
+          };
+
+        })
+
+      );
+
+    // =========================
+    // SEND EMAIL
+    // =========================
 
     await axios.post(
 
@@ -26,7 +52,8 @@ const sendMail = async ({
 
         sender: {
 
-          name: "Semicolon Exam System",
+          name:
+            "Semicolon Exam System",
 
           email:
             "reekbasu4529@gmail.com"
@@ -45,8 +72,12 @@ const sendMail = async ({
 
         htmlContent: html,
 
-        attachment:
-          formattedAttachments
+        ...(formattedAttachments.length > 0 && {
+
+          attachment:
+            formattedAttachments
+
+        })
 
       },
 
@@ -54,7 +85,8 @@ const sendMail = async ({
 
         headers: {
 
-          accept: "application/json",
+          accept:
+            "application/json",
 
           "api-key":
             process.env.BREVO_API_KEY,
@@ -74,11 +106,10 @@ const sendMail = async ({
 
     console.log("EMAIL ERROR:");
 
-console.log(err);
-
-console.log(err.response?.data);
-
-console.log(err.message);
+    console.log(
+      err.response?.data ||
+      err.message
+    );
 
   }
 

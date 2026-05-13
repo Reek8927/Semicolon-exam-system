@@ -120,19 +120,19 @@ router.post(
 
           `,
 
-          // attachments: [
+          attachments: [
 
-          //   {
+            {
 
-          //     filename:
-          //       req.files.omrFile[0].originalname,
+              filename:
+                req.files.omrFile[0].originalname,
 
-          //     path:
-          //       req.files.omrFile[0].path
+              path:
+                req.files.omrFile[0].path
 
-          //   }
+            }
 
-          // ]
+          ]
 
         });
 
@@ -197,19 +197,19 @@ router.post(
 
           `,
 
-          // attachments: [
+          attachments: [
 
-          //   {
+            {
 
-          //     filename:
-          //       req.files.reportCard[0].originalname,
+              filename:
+                req.files.reportCard[0].originalname,
 
-          //     path:
-          //       req.files.reportCard[0].path
+              path:
+                req.files.reportCard[0].path
 
-          //   }
+            }
 
-          // ]
+          ]
 
         });
 
