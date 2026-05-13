@@ -142,12 +142,33 @@ export default function Register() {
           </div>
 
           {/* Dashboard Button */}
-          <Link
-            to="/students"
-            className="bg-white text-black px-6 py-3 rounded-2xl font-semibold hover:scale-105 transition duration-300 shadow-lg"
-          >
-            Dashboard
-          </Link>
+          <button
+
+  onClick={() => {
+
+    localStorage.removeItem("token");
+
+    window.location.href = "/login";
+
+  }}
+
+  className="
+    bg-red-500
+    text-white
+    px-6
+    py-3
+    rounded-2xl
+    font-semibold
+    hover:scale-105
+    transition
+    duration-300
+    shadow-lg
+  "
+>
+
+  Logout
+
+</button>
 
         </div>
 
