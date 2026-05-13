@@ -107,23 +107,7 @@ router.post(
 
               <p><strong>Exam:</strong> ${examName}</p>
 
-              <p>Your OMR sheet is ready.</p>
-
-<a
-  href="${req.files.omrFile[0].path}"
-  style="
-    display:inline-block;
-    margin-top:20px;
-    padding:12px 24px;
-    background:#3b82f6;
-    color:white;
-    text-decoration:none;
-    border-radius:10px;
-    font-weight:bold;
-  "
->
-  View OMR
-</a>
+              <p>Please find the OMR attached.</p>
 
               <br/>
 
@@ -136,7 +120,19 @@ router.post(
 
           `,
 
-          
+          attachments: [
+
+            {
+
+              filename:
+                req.files.omrFile[0].originalname,
+
+              path:
+                req.files.omrFile[0].path
+
+            }
+
+          ]
 
         });
 
@@ -188,23 +184,7 @@ router.post(
 
               <p><strong>Rank:</strong> ${rank}</p>
 
-              <p>Your report card is ready.</p>
-
-<a
-  href="${req.files.reportCard[0].path}"
-  style="
-    display:inline-block;
-    margin-top:20px;
-    padding:12px 24px;
-    background:#06b6d4;
-    color:white;
-    text-decoration:none;
-    border-radius:10px;
-    font-weight:bold;
-  "
->
-  Download Report Card
-</a>
+              <p>Please find the report card attached.</p>
 
               <br/>
 
@@ -217,7 +197,19 @@ router.post(
 
           `,
 
-          
+          attachments: [
+
+            {
+
+              filename:
+                req.files.reportCard[0].originalname,
+
+              path:
+                req.files.reportCard[0].path
+
+            }
+
+          ]
 
         });
 

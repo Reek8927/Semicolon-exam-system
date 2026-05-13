@@ -3,10 +3,39 @@ const axios = require("axios");
 const sendMail = async ({
   to,
   subject,
-  html
+  html,
+  attachments = []
 }) => {
 
   try {
+
+    const formattedAttachments =
+      await Promise.all(
+
+        attachments.map(async (file) => {
+
+          const response =
+            await axios.get(file.path, {
+
+              responseType: "arraybuffer"
+
+            });
+
+          return {
+
+            name: file.filename,
+
+            content:
+              Buffer.from(
+                response.data,
+                "binary"
+              ).toString("base64")
+
+          };
+
+        })
+
+      );
 
     await axios.post(
 
@@ -18,7 +47,8 @@ const sendMail = async ({
 
           name: "Semicolon Exam System",
 
-          email: "reekbasu4529@gmail.com"
+          email:
+            "reekbasu4529@gmail.com"
 
         },
 
@@ -32,7 +62,10 @@ const sendMail = async ({
 
         subject,
 
-        htmlContent: html
+        htmlContent: html,
+
+        attachment:
+          formattedAttachments
 
       },
 
