@@ -20,6 +20,8 @@ const sendMail = async ({
 
         attachments.map(async (file) => {
 
+          console.log(file);
+
           const response =
             await axios.get(file.path, {
 
@@ -28,7 +30,7 @@ const sendMail = async ({
               
 
             });
-            console.log(file);
+            
 
           const ext =
   path.extname(file.filename);
