@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Students from "./pages/Students";
 import StudentProfile from "./pages/StudentProfile";
 import UploadExam from "./pages/UploadExam";
+import Login from "./pages/Login";
 
 function App() {
 
@@ -11,6 +12,8 @@ function App() {
     <BrowserRouter>
 
       <Routes>
+
+        <Route path="/login" element={<Login />} />
 
         <Route path="/" element={<Register />} />
 

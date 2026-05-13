@@ -5,6 +5,8 @@ require("dotenv").config();
 
 const app = express();
 
+const adminRoutes = require("./routes/adminRoutes");
+
 const studentRoutes = require("./routes/studentRoutes");
 
 const examRoutes = require("./routes/examRoutes");
@@ -22,6 +24,7 @@ app.get("/", (req, res) => {
 
 
 
+app.use("/api/admin", adminRoutes);
 app.use("/api/students", studentRoutes);
 
 
