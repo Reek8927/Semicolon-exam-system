@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function UploadExam() {
 
@@ -14,6 +15,8 @@ export default function UploadExam() {
     score: "",
     rank: ""
   });
+
+  const [loading, setLoading] = useState(false);
 
   const [omrFile, setOmrFile] = useState(null);
 
@@ -52,6 +55,8 @@ export default function UploadExam() {
 
   const handleSubmit = async (e) => {
 
+    setLoading(true);
+
     e.preventDefault();
 
     try {
@@ -76,7 +81,7 @@ export default function UploadExam() {
         data
       );
 
-      alert("Files Uploaded Successfully");
+      toast.success("Files Uploaded Successfully");
 
       setForm({
         studentId: "",
@@ -95,8 +100,11 @@ export default function UploadExam() {
   err
 );
 
-      alert("Upload Failed");
+      toast.error("Upload Failed");
 
+    } 
+    finally {
+      setLoading(false);
     }
 
   };
@@ -376,12 +384,37 @@ export default function UploadExam() {
             {/* Submit */}
 
             <button
-              className="w-full bg-gradient-to-r from-blue-500 to-cyan-400 py-5 rounded-2xl text-xl font-bold hover:opacity-90 transition"
-            >
 
-              Upload Files
+  disabled={loading}
 
-            </button>
+  className={`
+
+    w-full
+    bg-gradient-to-r
+    from-blue-500
+    to-cyan-400
+    py-5
+    rounded-2xl
+    text-xl
+    font-bold
+    transition
+
+    ${
+      loading
+        ? "opacity-50 cursor-not-allowed"
+        : "hover:opacity-90"
+    }
+
+  `}
+>
+
+  {
+    loading
+      ? "Uploading..."
+      : "Upload Files"
+  }
+
+</button>
 
           </form>
 
