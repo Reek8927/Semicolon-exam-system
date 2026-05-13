@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Register() {
 
@@ -13,7 +14,11 @@ export default function Register() {
     parentPhone: ""
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e) => {
+
+    setLoading(true);
 
     e.preventDefault();
 
@@ -24,9 +29,9 @@ export default function Register() {
   form
 );
 
-      alert(
-        `Student Registered\nRoll No: ${res.data.rollNo}`
-      );
+      toast.success(
+        `Student Registered | Roll No: ${res.data.rollNo}`
+      )
 
       setForm({
         name: "",
@@ -39,7 +44,12 @@ export default function Register() {
 
       console.log(err);
 
-      alert("Registration Failed");
+      toast.error("Registration Failed");
+
+    }
+    finally {
+
+      setLoading(false);
 
     }
 
@@ -253,9 +263,38 @@ export default function Register() {
                   }
                 />
 
-                <button className="w-full bg-gradient-to-r from-blue-500 to-cyan-400 py-4 rounded-2xl font-bold text-lg hover:scale-[1.02] transition duration-300 shadow-xl">
+                <button
 
-                  Register Student
+                  disabled={loading}
+
+                  className={`
+
+                    w-full
+                    bg-gradient-to-r
+                    from-blue-500
+                    to-cyan-400
+                    py-4
+                    rounded-2xl
+                    font-bold
+                    text-lg
+                    transition
+                    duration-300
+                    shadow-xl
+
+                    ${
+                      loading
+                        ? "opacity-50 cursor-not-allowed"
+                        : "hover:scale-[1.02]"
+                    }
+
+                  `}
+                >
+
+                  {
+                    loading
+                      ? "Registering..."
+                      : "Register Student"
+                  }
 
                 </button>
 
