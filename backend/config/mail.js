@@ -1,5 +1,7 @@
 const axios = require("axios");
 
+const path = require("path");
+
 const sendMail = async ({
   to,
   subject,
@@ -25,16 +27,41 @@ const sendMail = async ({
 
             });
 
-          return {
+          const ext =
+  path.extname(file.filename);
 
-            name: file.filename,
+let mimeType =
+  "application/octet-stream";
 
-            content:
-              Buffer.from(
-                response.data
-              ).toString("base64")
+if (ext === ".pdf") {
 
-          };
+  mimeType =
+    "application/pdf";
+
+}
+
+if (
+  ext === ".png" ||
+  ext === ".jpg" ||
+  ext === ".jpeg"
+) {
+
+  mimeType =
+    `image/${ext.replace(".", "")}`;
+}
+
+return {
+
+  name: file.filename,
+
+  content:
+    Buffer.from(
+      response.data
+    ).toString("base64"),
+
+  type: mimeType
+
+};
 
         })
 
