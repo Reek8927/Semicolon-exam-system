@@ -91,9 +91,13 @@ const sendMail = async ({
 
   } catch (err) {
 
-    console.log(
-      err.response?.data || err.message
-    );
+    console.log("EMAIL ERROR:");
+
+console.log(err);
+
+console.log(err.response?.data);
+
+console.log(err.message);
 
   }
 
