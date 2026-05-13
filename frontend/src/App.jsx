@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./pages/Register";
 import Students from "./pages/Students";
 import StudentProfile from "./pages/StudentProfile";
@@ -17,11 +17,23 @@ function App() {
 
         <Route path="/" element={<Register />} />
 
-        <Route path="/students" element={<Students />} />
+        <Route path="/students" element={
+          <ProtectedRoute>
+            <Students />
+          </ProtectedRoute>
+        } />
 
-        <Route path="/student/:rollNo" element={<StudentProfile />} />
+        <Route path="/student/:rollNo" element={
+          <ProtectedRoute>
+            <StudentProfile />
+          </ProtectedRoute>
+        } />
 
-        <Route path="/upload" element={<UploadExam />} />
+        <Route path="/upload" element={
+          <ProtectedRoute>
+            <UploadExam />
+          </ProtectedRoute>
+          } />
 
       </Routes>
 
