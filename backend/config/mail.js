@@ -10,32 +10,13 @@ const sendMail = async ({
   try {
 
     const formattedAttachments =
-      await Promise.all(
+  attachments.map((file) => ({
 
-        attachments.map(async (file) => {
+    url: file.path,
 
-          const response =
-            await axios.get(file.path, {
+    name: file.filename
 
-              responseType: "arraybuffer"
-
-            });
-
-          return {
-
-            name: file.filename,
-
-            content:
-              Buffer.from(
-                response.data,
-                "binary"
-              ).toString("base64")
-
-          };
-
-        })
-
-      );
+  }));
 
     await axios.post(
 
