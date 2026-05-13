@@ -4,24 +4,41 @@ const {
   CloudinaryStorage
 } = require("multer-storage-cloudinary");
 
-const cloudinary = require("./cloudinary");
+const cloudinary =
+  require("./cloudinary");
 
-const storage = new CloudinaryStorage({
+const storage =
+  new CloudinaryStorage({
 
-  cloudinary: cloudinary,
+    cloudinary,
 
-  params: {
+    params: async (req, file) => {
 
-    folder: "semicolon-exams",
+      const isPdf =
+        file.mimetype ===
+        "application/pdf";
 
-    resource_type: "auto"
+      return {
 
-  }
+        folder:
+          "semicolon-exams",
 
-});
+        resource_type:
+          isPdf
+            ? "raw"
+            : "image"
 
-const upload = multer({
-  storage
-});
+      };
+
+    }
+
+  });
+
+const upload =
+  multer({
+
+    storage
+
+  });
 
 module.exports = upload;
