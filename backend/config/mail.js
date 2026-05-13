@@ -25,7 +25,10 @@ const sendMail = async ({
 
               responseType: "arraybuffer"
 
+              
+
             });
+            console.log(file);
 
           const ext =
   path.extname(file.filename);
