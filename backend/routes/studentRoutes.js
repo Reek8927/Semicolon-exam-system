@@ -122,4 +122,42 @@ router.get("/:rollNo", async (req, res) => {
 
 });
 
+router.delete(
+
+  "/:id",
+
+  async (req, res) => {
+
+    try {
+
+      await Student.findByIdAndDelete(
+
+        req.params.id
+
+      );
+
+      res.json({
+
+        message:
+          "Student Deleted"
+
+      });
+
+    } catch (err) {
+
+      console.log(err);
+
+      res.status(500).json({
+
+        message:
+          "Delete Failed"
+
+      });
+
+    }
+
+  }
+
+);
+
 module.exports = router;

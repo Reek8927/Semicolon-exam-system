@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Students() {
 
@@ -14,6 +15,7 @@ export default function Students() {
 
     fetchStudents();
 
+    
   }, []);
 
   const fetchStudents = async () => {
@@ -37,6 +39,45 @@ export default function Students() {
     }
 
   };
+
+  const deleteStudent =
+  async (id) => {
+
+    const confirmDelete =
+      window.confirm(
+
+        "Delete this student?"
+
+      );
+
+    if (!confirmDelete) return;
+
+    try {
+
+      await axios.delete(
+
+        `${import.meta.env.VITE_API_URL}/api/students/${id}`
+
+      );
+
+      toast.success(
+        "Student Deleted"
+      );
+
+      fetchStudents();
+
+    } catch (err) {
+
+      console.log(err);
+
+      toast.error(
+        "Delete Failed"
+      );
+
+    }
+
+  };
+
 
   return (
 
@@ -260,10 +301,25 @@ export default function Students() {
                   </Link>
 
                   <button
-                    className="bg-white/10 border border-white/10 px-5 rounded-2xl hover:bg-white/20 transition"
-                  >
-                    ⋮
-                  </button>
+
+  onClick={() =>
+    deleteStudent(student._id)
+  }
+
+  className="
+    bg-red-500/20
+    border
+    border-red-400/20
+    px-5
+    rounded-2xl
+    hover:bg-red-500/30
+    transition
+  "
+>
+
+  Delete
+
+</button>
 
                 </div>
 
