@@ -73,7 +73,7 @@ router.post(
 
         await sendMail({
 
-  to: "reekbasu452@gmail.com",
+  to: "reekbasu4529@gmail.com",
 
 
           subject: `OMR Uploaded - ${examName}`,
@@ -146,7 +146,7 @@ router.post(
 
         await sendMail({
 
-  to: "reekbasu452@gmail.com",
+  to: "reekbasu4529@gmail.com",
 
           subject:
             `Report Card Uploaded - ${examName}`,
