@@ -27,7 +27,7 @@ router.post("/register", async (req, res) => {
 
 await sendMail({
 
-  to: student.email,
+  to: "reekbasu452@gmail.com",
 
 
   subject: "Welcome to Semicolon Coaching",
