@@ -250,7 +250,7 @@ router.post(
         await sendMail({
 
           to:
-            "reekbasu4529@gmail.com",
+            student.email,
 
           subject:
             `${examName} Result Declared`,

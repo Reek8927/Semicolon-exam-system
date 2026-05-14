@@ -61,7 +61,7 @@ router.post(
 
         await sendMail({
 
-          to: "reekbasu4529@gmail.com",  
+          to: student.email,  
           subject:
             `${examName} Final Answer Key Released`,
 
