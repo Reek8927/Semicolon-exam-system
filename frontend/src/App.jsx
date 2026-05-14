@@ -6,6 +6,7 @@ import StudentProfile from "./pages/StudentProfile";
 import UploadExam from "./pages/UploadExam";
 import Login from "./pages/Login";
 import AnswerKeyUpload from "./pages/AnswerKeyUpload";
+import BulkResultUpload from "./pages/BulkResultUpload";
 
 function App() {
 
@@ -39,6 +40,12 @@ function App() {
         <Route path="/answer-key" element={
           <ProtectedRoute>
             <AnswerKeyUpload />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/bulk-results" element={
+          <ProtectedRoute>
+            <BulkResultUpload />
           </ProtectedRoute>
         } />
 

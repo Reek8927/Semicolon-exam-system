@@ -13,7 +13,9 @@ const examRoutes = require("./routes/examRoutes");
 
 const answerKeyRoutes = require("./routes/answerKeyRoutes");
 
-// const bulkUploadRoutes = require("./routes/bulkUploadRoutes");
+const bulkResultRoutes = require("./routes/bulkResultRoutes");
+
+
 
 app.use(cors());
 app.use(express.json());
@@ -37,7 +39,9 @@ app.use("/api/exams", examRoutes);
 
 app.use("/api/answer-key", answerKeyRoutes);
 
-// app.use("/api/bulk-upload", bulkUploadRoutes);
+app.use("/api/bulk-results", bulkResultRoutes);
+
+
 
 const PORT = process.env.PORT || 5000;
 
