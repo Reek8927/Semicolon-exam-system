@@ -139,6 +139,33 @@ export default function Register() {
               Upload
             </Link>
 
+            <Link
+  to="/answer-key"
+  className={`
+
+    px-5
+    py-3
+    rounded-2xl
+    font-semibold
+    transition
+    duration-300
+
+    ${
+      location.pathname ===
+      "/answer-key"
+
+        ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
+
+        : "text-gray-300 hover:bg-white/10 hover:text-white"
+    }
+
+  `}
+>
+
+  Answer Key
+
+</Link>
+
           </div>
 
           {/* Dashboard Button */}
