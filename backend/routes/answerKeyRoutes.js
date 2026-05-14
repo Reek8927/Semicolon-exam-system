@@ -50,15 +50,8 @@ router.post(
       // GET ALL STUDENTS
       // =========================
 
-      const students = [
-
-  {
-    name: "Reek Basu",
-    email:
-      "reekbasu4529@gmail.com"
-  }
-
-];
+      const students =
+        await Student.find();
 
       // =========================
       // SEND MAIL TO ALL
@@ -68,7 +61,7 @@ router.post(
 
         await sendMail({
 
-          to: "reekbasu4529@gmail.com",
+          to: student.email,
 
           subject:
             `${examName} Final Answer Key Released`,

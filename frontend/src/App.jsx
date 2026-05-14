@@ -5,6 +5,7 @@ import Students from "./pages/Students";
 import StudentProfile from "./pages/StudentProfile";
 import UploadExam from "./pages/UploadExam";
 import Login from "./pages/Login";
+import AnswerKeyUpload from "./pages/AnswerKeyUpload";
 
 function App() {
 
@@ -34,6 +35,12 @@ function App() {
             <UploadExam />
           </ProtectedRoute>
           } />
+
+        <Route path="/answer-key" element={
+          <ProtectedRoute>
+            <AnswerKeyUpload />
+          </ProtectedRoute>
+        } />
 
       </Routes>
 
