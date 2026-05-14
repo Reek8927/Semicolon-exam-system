@@ -4,7 +4,15 @@ import axios from "axios";
 
 import toast from "react-hot-toast";
 
+import {
+  Link,
+  useLocation
+} from "react-router-dom";
+
 export default function AnswerKeyUpload() {
+
+  const location =
+    useLocation();
 
   const [examName, setExamName] =
     useState("");
@@ -40,19 +48,13 @@ export default function AnswerKeyUpload() {
           new FormData();
 
         formData.append(
-
           "examName",
-
           examName
-
         );
 
         formData.append(
-
           "file",
-
           file
-
         );
 
         await axios.post(
@@ -64,9 +66,7 @@ export default function AnswerKeyUpload() {
         );
 
         toast.success(
-
           "Answer Key Uploaded"
-
         );
 
         setExamName("");
@@ -78,9 +78,7 @@ export default function AnswerKeyUpload() {
         console.log(err);
 
         toast.error(
-
           "Upload Failed"
-
         );
 
       } finally {
@@ -93,259 +91,311 @@ export default function AnswerKeyUpload() {
 
   return (
 
-    <div className="min-h-screen bg-[#050816] text-white flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[#050816] text-white relative overflow-hidden">
 
-      {/* Card */}
+      {/* Background Glow */}
 
-      <div className="w-full max-w-xl bg-white/10 border border-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl">
+      <div className="absolute top-[-100px] left-[-100px] w-[350px] h-[350px] bg-blue-500/20 blur-[120px] rounded-full"></div>
+
+      <div className="absolute bottom-[-100px] right-[-100px] w-[350px] h-[350px] bg-cyan-400/20 blur-[120px] rounded-full"></div>
 
       {/* Navbar */}
+
       <nav className="relative z-20 px-6 md:px-12 pt-6">
 
         <div className="max-w-7xl mx-auto backdrop-blur-xl bg-white/10 border border-white/10 rounded-3xl px-8 py-5 flex items-center justify-between shadow-2xl">
 
           {/* Logo */}
+
           <div>
 
             <h1 className="text-2xl font-black tracking-wide">
+
               SEMICOLON
+
             </h1>
 
             <p className="text-xs text-gray-400 tracking-[4px]">
+
               EXAM SYSTEM
+
             </p>
 
           </div>
 
           {/* Navigation */}
+
           <div className="hidden md:flex items-center gap-4">
 
             <Link
               to="/"
-              className={`px-5 py-3 rounded-2xl font-semibold transition duration-300
+              className={`
 
-              ${
-                location.pathname === "/"
+                px-5
+                py-3
+                rounded-2xl
+                font-semibold
+                transition
+                duration-300
 
-                  ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
+                ${
+                  location.pathname === "/"
 
-                  : "text-gray-300 hover:bg-white/10 hover:text-white"
-              }
+                    ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
+
+                    : "text-gray-300 hover:bg-white/10 hover:text-white"
+                }
+
               `}
             >
+
               Home
+
             </Link>
 
             <Link
               to="/students"
-              className={`px-5 py-3 rounded-2xl font-semibold transition duration-300
+              className={`
 
-              ${
-                location.pathname === "/students"
+                px-5
+                py-3
+                rounded-2xl
+                font-semibold
+                transition
+                duration-300
 
-                  ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
+                ${
+                  location.pathname === "/students"
 
-                  : "text-gray-300 hover:bg-white/10 hover:text-white"
-              }
+                    ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
+
+                    : "text-gray-300 hover:bg-white/10 hover:text-white"
+                }
+
               `}
             >
+
               Students
+
             </Link>
 
             <Link
               to="/upload"
-              className={`px-5 py-3 rounded-2xl font-semibold transition duration-300
+              className={`
 
-              ${
-                location.pathname === "/upload"
+                px-5
+                py-3
+                rounded-2xl
+                font-semibold
+                transition
+                duration-300
 
-                  ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
+                ${
+                  location.pathname === "/upload"
 
-                  : "text-gray-300 hover:bg-white/10 hover:text-white"
-              }
+                    ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
+
+                    : "text-gray-300 hover:bg-white/10 hover:text-white"
+                }
+
               `}
             >
+
               Upload
+
             </Link>
 
             <Link
-  to="/answer-key"
-  className={`
+              to="/answer-key"
+              className={`
 
-    px-5
-    py-3
-    rounded-2xl
-    font-semibold
-    transition
-    duration-300
+                px-5
+                py-3
+                rounded-2xl
+                font-semibold
+                transition
+                duration-300
 
-    ${
-      location.pathname ===
-      "/answer-key"
+                ${
+                  location.pathname === "/answer-key"
 
-        ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
+                    ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
 
-        : "text-gray-300 hover:bg-white/10 hover:text-white"
-    }
+                    : "text-gray-300 hover:bg-white/10 hover:text-white"
+                }
 
-  `}
->
+              `}
+            >
 
-  Answer Key
+              Answer Key
 
-</Link>
+            </Link>
 
           </div>
 
-          {/* Dashboard Button */}
+          {/* Logout */}
+
           <button
 
-  onClick={() => {
+            onClick={() => {
 
-    localStorage.removeItem("token");
+              localStorage.removeItem(
+                "token"
+              );
 
-    window.location.href = "/login";
+              window.location.href =
+                "/login";
 
-  }}
+            }}
 
-  className="
-    bg-red-500
-    text-white
-    px-6
-    py-3
-    rounded-2xl
-    font-semibold
-    hover:scale-105
-    transition
-    duration-300
-    shadow-lg
-  "
->
+            className="
+              bg-red-500
+              text-white
+              px-6
+              py-3
+              rounded-2xl
+              font-semibold
+              hover:scale-105
+              transition
+              duration-300
+              shadow-lg
+            "
+          >
 
-  Logout
+            Logout
 
-</button>
+          </button>
 
         </div>
 
       </nav>
 
-        {/* Heading */}
+      {/* Main Content */}
 
-        <div className="mb-8">
+      <div className="relative z-10 flex items-center justify-center p-6 pt-24">
 
-          <h1 className="text-4xl font-black">
+        <div className="w-full max-w-xl bg-white/10 border border-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl">
 
-            Upload Answer Key
+          {/* Heading */}
 
-          </h1>
+          <div className="mb-8">
 
-          <p className="text-gray-400 mt-2">
+            <h1 className="text-4xl font-black">
 
-            Send final answer key to students
+              Upload Answer Key
 
-          </p>
+            </h1>
 
-        </div>
+            <p className="text-gray-400 mt-2">
 
-        {/* Form */}
+              Send final answer key to students
 
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-6"
-        >
+            </p>
 
-          {/* Exam Name */}
+          </div>
 
-          <input
-            type="text"
-            placeholder="Exam Name"
-            value={examName}
-            onChange={(e) =>
-              setExamName(
-                e.target.value
-              )
-            }
-            className="
-              w-full
-              bg-white/10
-              border
-              border-white/10
-              rounded-2xl
-              px-5
-              py-4
-              outline-none
-              placeholder:text-gray-400
-              focus:border-blue-400
-            "
-          />
+          {/* Form */}
 
-          {/* File */}
-
-          <input
-            type="file"
-            accept=".pdf"
-            onChange={(e) =>
-              setFile(
-                e.target.files[0]
-              )
-            }
-            className="
-              w-full
-              bg-white/10
-              border
-              border-white/10
-              rounded-2xl
-              px-5
-              py-4
-              file:mr-4
-              file:px-4
-              file:py-2
-              file:border-0
-              file:rounded-xl
-              file:bg-blue-500
-              file:text-white
-            "
-          />
-
-          {/* Button */}
-
-          <button
-
-            disabled={loading}
-
-            className={`
-              w-full
-              py-4
-              rounded-2xl
-              font-bold
-              text-lg
-              transition
-              shadow-xl
-
-              ${
-                loading
-
-                  ? "bg-gray-500 cursor-not-allowed"
-
-                  : "bg-gradient-to-r from-blue-500 to-cyan-400 hover:scale-[1.02]"
-              }
-            `}
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6"
           >
 
-            {
+            {/* Exam Name */}
 
-              loading
+            <input
+              type="text"
+              placeholder="Exam Name"
+              value={examName}
+              onChange={(e) =>
+                setExamName(
+                  e.target.value
+                )
+              }
+              className="
+                w-full
+                bg-white/10
+                border
+                border-white/10
+                rounded-2xl
+                px-5
+                py-4
+                outline-none
+                placeholder:text-gray-400
+                focus:border-blue-400
+              "
+            />
 
-                ? "Uploading..."
+            {/* File */}
 
-                : "Upload Answer Key"
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={(e) =>
+                setFile(
+                  e.target.files[0]
+                )
+              }
+              className="
+                w-full
+                bg-white/10
+                border
+                border-white/10
+                rounded-2xl
+                px-5
+                py-4
+                file:mr-4
+                file:px-4
+                file:py-2
+                file:border-0
+                file:rounded-xl
+                file:bg-blue-500
+                file:text-white
+              "
+            />
 
-            }
+            {/* Button */}
 
-          </button>
+            <button
 
-        </form>
+              disabled={loading}
+
+              className={`
+
+                w-full
+                py-4
+                rounded-2xl
+                font-bold
+                text-lg
+                transition
+                shadow-xl
+
+                ${
+                  loading
+
+                    ? "bg-gray-500 cursor-not-allowed"
+
+                    : "bg-gradient-to-r from-blue-500 to-cyan-400 hover:scale-[1.02]"
+                }
+
+              `}
+            >
+
+              {
+
+                loading
+
+                  ? "Uploading..."
+
+                  : "Upload Answer Key"
+
+              }
+
+            </button>
+
+          </form>
+
+        </div>
 
       </div>
 
