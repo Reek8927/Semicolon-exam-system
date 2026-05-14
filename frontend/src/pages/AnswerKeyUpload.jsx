@@ -99,6 +99,137 @@ export default function AnswerKeyUpload() {
 
       <div className="w-full max-w-xl bg-white/10 border border-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl">
 
+      {/* Navbar */}
+      <nav className="relative z-20 px-6 md:px-12 pt-6">
+
+        <div className="max-w-7xl mx-auto backdrop-blur-xl bg-white/10 border border-white/10 rounded-3xl px-8 py-5 flex items-center justify-between shadow-2xl">
+
+          {/* Logo */}
+          <div>
+
+            <h1 className="text-2xl font-black tracking-wide">
+              SEMICOLON
+            </h1>
+
+            <p className="text-xs text-gray-400 tracking-[4px]">
+              EXAM SYSTEM
+            </p>
+
+          </div>
+
+          {/* Navigation */}
+          <div className="hidden md:flex items-center gap-4">
+
+            <Link
+              to="/"
+              className={`px-5 py-3 rounded-2xl font-semibold transition duration-300
+
+              ${
+                location.pathname === "/"
+
+                  ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
+
+                  : "text-gray-300 hover:bg-white/10 hover:text-white"
+              }
+              `}
+            >
+              Home
+            </Link>
+
+            <Link
+              to="/students"
+              className={`px-5 py-3 rounded-2xl font-semibold transition duration-300
+
+              ${
+                location.pathname === "/students"
+
+                  ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
+
+                  : "text-gray-300 hover:bg-white/10 hover:text-white"
+              }
+              `}
+            >
+              Students
+            </Link>
+
+            <Link
+              to="/upload"
+              className={`px-5 py-3 rounded-2xl font-semibold transition duration-300
+
+              ${
+                location.pathname === "/upload"
+
+                  ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
+
+                  : "text-gray-300 hover:bg-white/10 hover:text-white"
+              }
+              `}
+            >
+              Upload
+            </Link>
+
+            <Link
+  to="/answer-key"
+  className={`
+
+    px-5
+    py-3
+    rounded-2xl
+    font-semibold
+    transition
+    duration-300
+
+    ${
+      location.pathname ===
+      "/answer-key"
+
+        ? "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg"
+
+        : "text-gray-300 hover:bg-white/10 hover:text-white"
+    }
+
+  `}
+>
+
+  Answer Key
+
+</Link>
+
+          </div>
+
+          {/* Dashboard Button */}
+          <button
+
+  onClick={() => {
+
+    localStorage.removeItem("token");
+
+    window.location.href = "/login";
+
+  }}
+
+  className="
+    bg-red-500
+    text-white
+    px-6
+    py-3
+    rounded-2xl
+    font-semibold
+    hover:scale-105
+    transition
+    duration-300
+    shadow-lg
+  "
+>
+
+  Logout
+
+</button>
+
+        </div>
+
+      </nav>
+
         {/* Heading */}
 
         <div className="mb-8">
